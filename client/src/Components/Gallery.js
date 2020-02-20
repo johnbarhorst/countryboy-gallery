@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Gallery = () => {
-  const [current, setCurrent] = useState('');
-  const [next, setNext] = useState('');
-  const [prev, setPrev] = useState('');
+  const [currentSlide, setCurrentSlide] = useState(1);
+  const [nextSlide, setNextSlide] = useState(2);
+  const [prevSlide, setPrevSlide] = useState(0);
+  const [slideArray, setSlideArray] = useState([]);
+
   return (
     <div>
 
