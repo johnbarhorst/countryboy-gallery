@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Header from './Components/Header';
+import Gallery from './Components/Gallery';
+import GalleryList from './GalleryList';
+
+const Img = styled.img`
+  width: 400px;
+`;
 
 const App = () => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    setImages(GalleryList.gallery);
+
+  }, []);
   return (
     <div className="App">
       <Header />
-
+      <Gallery >
+        {images.map((img, i) => (
+          <Img src={`./img${img.url}`} alt={img.altText} key={i} />
+        ))}
+      </Gallery>
     </div>
   );
 }
