@@ -78,7 +78,7 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
           transition: 0,
           translate: (children.length) * width
         };
-      case 'slideReset':
+      case 'firstSlide':
         return {
           currentSlide: 1,
           transition: 0,
@@ -104,15 +104,11 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
     dispatch({ type: 'next' });
     if (currentSlide === children.length) {
       setTimeout(() => {
-        dispatch({ type: 'slideReset' });
+        dispatch({ type: 'firstSlide' });
       }, 250);
     }
 
   }
-
-  // useEffect(() => {
-
-  // }, [currentSlide])
 
   return (
     <GalleryDisplay w={width} h={height} >
