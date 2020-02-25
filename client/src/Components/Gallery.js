@@ -1,5 +1,7 @@
-import React, { useState, Children, useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import styled from 'styled-components';
+
+//Elements 
 
 const GalleryDisplay = styled.div`
   display: flex;
@@ -41,8 +43,8 @@ const Slide = styled.div`
 
   `;
 
-const GallerySlide = ({ element }) => {
 
+const GallerySlide = ({ element }) => {
   return (
     <Slide>
       {element}
@@ -50,33 +52,75 @@ const GallerySlide = ({ element }) => {
   )
 }
 
-const Gallery = ({ children, interval, width = '400', height = '500' }) => {
-  const [currentSlide, setCurrentSlide] = useState(1);
-  const [translate, setTranslate] = useState(0);
-  const [transition, setTransition] = useState(.3);
-  const [nextSlide, setNextSlide] = useState(2);
-  const [prevSlide, setPrevSlide] = useState(0);
-  const [slideArray, setSlideArray] = useState([]);
-  const childrenArray = Children.toArray(children);
-
+const Gallery = ({ children, interval, width = '400', height = '500', speed = .3 }) => {
+  const initialState = {
+    currentSlide: 1,
+    transition: speed,
+    translate: width
+  }
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'next':
+        return {
+          currentSlide: state.currentSlide + 1,
+          transition: speed,
+          translate: (state.currentSlide + 1) * width
+        };
+      case 'prev':
+        return {
+          currentSlide: state.currentSlide - 1,
+          transition: speed,
+          translate: (state.currentSlide - 1) * width
+        };
+      case 'lastSlide':
+        return {
+          currentSlide: children.length,
+          transition: 0,
+          translate: (children.length) * width
+        };
+      case 'slideReset':
+        return {
+          currentSlide: 1,
+          transition: 0,
+          translate: width
+        }
+      default:
+        break;
+    }
+  }
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { currentSlide, transition, translate } = state;
 
   const handleBack = () => {
-    setCurrentSlide(currentSlide - 1);
+    dispatch({ type: 'prev' });
+    if (currentSlide === 1) {
+      setTimeout(() => {
+        dispatch({ type: 'lastSlide' });
+      }, 250);
+    }
   }
 
   const handleForward = () => {
-    setCurrentSlide(currentSlide + 1);
+    dispatch({ type: 'next' });
+    if (currentSlide === children.length) {
+      setTimeout(() => {
+        dispatch({ type: 'slideReset' });
+      }, 250);
+    }
+
   }
 
-  useEffect(() => {
-    setTranslate(currentSlide * width);
-  }, [currentSlide])
+  // useEffect(() => {
+
+  // }, [currentSlide])
 
   return (
     <GalleryDisplay w={width} h={height} >
       <BackButton onClick={() => handleBack()} />
       <GalleryContent translate={translate} transition={transition}>
-        {childrenArray.map((el, i) => (<GallerySlide key={i} element={el} />))}
+        <GallerySlide element={children[children.length - 1]} />
+        {children.map((el, i) => (<GallerySlide key={i} element={el} />))}
+        <GallerySlide element={children[0]} />
       </GalleryContent>
       <ForwardButton w={width} onClick={() => handleForward()} />
     </GalleryDisplay>
