@@ -22,25 +22,31 @@ const GalleryContent = styled.div`
 `;
 
 const BackButton = styled.button`
+  cursor: pointer;
+  outline: none;
   z-index: 1000;
   position: absolute;
-  left: 0;
-  height: 100%;
+  top: 50%;
+  left: 2px;
+  height: 50px;
   width: 50px;
-  opacity: 0;
-  background: #333;
+  border-radius: 50%;
+  border: 1px solid black;
+  opacity: 0.1;
+  background: #ddd;
   border: none;
-  :hover {
-    opacity: .3;
+  :hover,
+  :active {
+    opacity: .7;
   }
 `;
 
 const ForwardButton = styled(BackButton)`
-  left: ${props => props.w - 50}px;
+  left: ${props => props.w - 52}px;
 `;
 
 const Slide = styled.div`
-
+    
   `;
 
 
@@ -52,7 +58,7 @@ const GallerySlide = ({ element }) => {
   )
 }
 
-const Gallery = ({ children, interval, width = '400', height = '500', speed = .3 }) => {
+const Gallery = ({ children, interval, width = '400', height = '500', speed = .3, isVertical = false }) => {
   const initialState = {
     currentSlide: 1,
     transition: speed,
@@ -107,7 +113,6 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
         dispatch({ type: 'firstSlide' });
       }, 250);
     }
-
   }
 
   return (
