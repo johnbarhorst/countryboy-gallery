@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 
 //Elements 
@@ -46,7 +46,8 @@ const ForwardButton = styled(BackButton)`
 `;
 
 const Slide = styled.div`
-    
+    display: flex;
+    justify-content: center;
   `;
 
 
@@ -96,6 +97,7 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentSlide, transition, translate } = state;
+  const ref = useRef();
 
   const handleBack = () => {
     dispatch({ type: 'prev' });
@@ -115,8 +117,9 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
     }
   }
 
+
   return (
-    <GalleryDisplay w={width} h={height} >
+    <GalleryDisplay w={width} h={height} onTransitionEnd={() => console.log('test')}>
       <BackButton onClick={() => handleBack()} />
       <GalleryContent translate={translate} transition={transition}>
         <GallerySlide element={children[children.length - 1]} />

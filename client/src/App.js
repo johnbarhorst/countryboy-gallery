@@ -5,10 +5,8 @@ import Gallery from './Components/Gallery';
 import GalleryList from './GalleryList';
 
 const Img = styled.img`
-  width: 600px;
+  width: 1000px;
 `;
-
-
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -20,9 +18,10 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <Gallery width={600} >
+      <Gallery width={1000} height={563}>
         {images.map((img, i) => (
           <Img src={`./img${img.url}`} alt={img.altText} key={i} />
+
         ))}
       </Gallery>
     </div>
