@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
 
 //Elements 
@@ -97,7 +97,6 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
   }
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentSlide, transition, translate } = state;
-  const ref = useRef();
 
   const handleBack = () => {
     dispatch({ type: 'prev' });
