@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 //Elements 
@@ -16,7 +15,10 @@ const GalleryDisplay = styled.div`
 const GalleryContent = styled.div`
   transform: translateX(-${props => props.translate}px);
   transition: transform ease-out ${props => props.transition}s;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
 `;
 
 const BackButton = styled.button`
@@ -116,27 +118,11 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
   return (
     <GalleryDisplay w={width} h={height}>
       <BackButton onClick={() => handleBack()} />
-      <motion.div
-        initial={{
-          x: '-' + width + 'px'
-        }}
-        animate={{
-          x: '-' + translate + 'px'
-        }}
-        transition={{
-          duration: transition
-        }}
-        style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          display: 'flex'
-        }}
-      >
+      <GalleryContent translate={translate} transition={transition}>
         <GallerySlide element={children[children.length - 1]} height={height} width={width} />
         {children.map((el, i) => (<GallerySlide key={i} element={el} height={height} width={width} />))}
         <GallerySlide element={children[0]} height={height} width={width} />
-      </motion.div>
+      </GalleryContent>
       <ForwardButton w={width} onClick={() => handleForward()} />
     </GalleryDisplay>
   )
