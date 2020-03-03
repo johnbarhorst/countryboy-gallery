@@ -6,6 +6,7 @@ import GalleryList from './GalleryList';
 
 const Img = styled.img`
   width: 1000px;
+  height: 563px;
 `;
 
 const App = () => {
@@ -21,7 +22,6 @@ const App = () => {
       <Gallery width={1000} height={563}>
         {images.map((img, i) => (
           <Img src={`./img${img.url}`} alt={img.altText} key={i} />
-
         ))}
       </Gallery>
     </div>

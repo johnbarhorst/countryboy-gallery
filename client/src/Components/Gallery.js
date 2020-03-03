@@ -46,9 +46,8 @@ const ForwardButton = styled(BackButton)`
 `;
 
 const Slide = styled.div`
-    display: flex;
-    justify-content: center;
-  `;
+
+`;
 
 
 const GallerySlide = ({ element }) => {
@@ -116,14 +115,13 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
     }
   }
 
-
   return (
-    <GalleryDisplay w={width} h={height} onTransitionEnd={() => console.log('test')}>
+    <GalleryDisplay w={width} h={height}>
       <BackButton onClick={() => handleBack()} />
       <GalleryContent translate={translate} transition={transition}>
-        <GallerySlide element={children[children.length - 1]} />
-        {children.map((el, i) => (<GallerySlide key={i} element={el} />))}
-        <GallerySlide element={children[0]} />
+        <GallerySlide element={children[children.length - 1]} height={height} width={width} />
+        {children.map((el, i) => (<GallerySlide key={i} element={el} height={height} width={width} />))}
+        <GallerySlide element={children[0]} height={height} width={width} />
       </GalleryContent>
       <ForwardButton w={width} onClick={() => handleForward()} />
     </GalleryDisplay>
