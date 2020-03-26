@@ -1,55 +1,6 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
 
-//Elements 
-
-const GalleryDisplay = styled.div`
-  display: flex;
-  overflow: hidden;
-  width: ${props => props.w}px;
-  height: ${props => props.h}px;
-  margin: 0 auto;
-  position: relative;
-`;
-
-const GalleryContent = styled.div`
-  transform: translateX(-${props => props.translate}px);
-  transition: transform ease-out ${props => props.transition}s;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-`;
-
-const BackButton = styled.button`
-  cursor: pointer;
-  outline: none;
-  z-index: 1000;
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 1px solid black;
-  opacity: 0.1;
-  background: #ddd;
-  border: none;
-  :hover,
-  :active {
-    opacity: .7;
-  }
-`;
-
-const ForwardButton = styled(BackButton)`
-  left: ${props => props.w - 52}px;
-`;
-
-const Slide = styled.div`
-
-`;
-
-
 const GallerySlide = ({ element }) => {
   return (
     <Slide>
@@ -129,3 +80,51 @@ const Gallery = ({ children, interval, width = '400', height = '500', speed = .3
 }
 
 export default Gallery;
+
+//Elements 
+
+const GalleryDisplay = styled.div`
+  display: flex;
+  overflow: hidden;
+  width: ${props => props.w}px;
+  height: ${props => props.h}px;
+  margin: 0 auto;
+  position: relative;
+`;
+
+const GalleryContent = styled.div`
+  transform: translateX(-${props => props.translate}px);
+  transition: transform ease-out ${props => props.transition}s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+`;
+
+const BackButton = styled.button`
+  cursor: pointer;
+  outline: none;
+  z-index: 1000;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid black;
+  opacity: 0.1;
+  background: #ddd;
+  border: none;
+  :hover,
+  :active {
+    opacity: .7;
+  }
+`;
+
+const ForwardButton = styled(BackButton)`
+  left: ${props => props.w - 52}px;
+`;
+
+const Slide = styled.div`
+
+`;
